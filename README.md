@@ -47,6 +47,26 @@
 | ┗ | Simulation data.xlsx | 解析に使用するデータ|
 |   |  Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
 
+
+| フォルダ/ファイル名 | 説明 |
+| :-- | :-- | 
+| 3.3 1D-MCS |    | 1D-MCSの実装例 |
+| ┠ 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
+| ┗ 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
+| 4.2 BE for left-censored data | 左打ち切りデータのベイズ推定実装例 |
+| ┠ 4.2 BE for left-censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| ┠ 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
+| ┠ Excel_simulation.xlsx | 解析に使用するデータ |
+| ┗ Lognormal_LC.stan | Stanコードが書いてある。|
+| 4.4 2D-MCS | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
+| ┠ 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| ┠ 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
+| ┠ Gamma_LC.stan | Stanコードが書いてある。|
+| ┠ Lognormal_LC.stan | Stanコードが書いてある|
+| ┗ Simulation data.xlsx | 解析に使用するデータ|
+| Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
+
+
 ## ≪インストール方法≫
 緑色のCodeボタンをクリック⇒"Download ZIP"を選択し本プロジェクトのファイルが保存されているzipファイルをダウンロードして下さい。zipファイルを解凍して任意の場所に保存して下さい。<br>
 日本語が使用されているディレクトリへの保存は避けた方が無難です。<br>
