@@ -32,8 +32,13 @@
 | フォルダ | ファイル名 | 説明 ｜
 | --: | --- | --- | 
 | 3.3 1D-MCS |    | 1D-MCSの実装例 |
-| ┠ | 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載|
+| ┠ | 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
 | ┗ | 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
+| 4.2 BE for left-censored data |   | 左打ち切りデータのベイズ推定実装例 |
+| ┠ | 4.2 BE for left-censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| ┠ | 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
+| ┠ | Excel_simulation.xlsx | 解析に使用するデータ |
+| ┗ | Lognormal_LC.stan | Stanコードが書いてある。|
 
 * 2D-MCS.zip: 2D-MCSを実行したプロジェクトです。
 * 2D-MCS.html: 2D-MCS.Rmdファイルの解析をKnit機能を用いてアウトプットしたものです。設定に問題が無ければ、このファイルと同じ解析結果が得られるはずです。
