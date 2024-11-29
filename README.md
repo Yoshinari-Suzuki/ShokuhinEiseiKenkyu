@@ -31,8 +31,9 @@
 
 | フォルダ | ファイル名 | 説明 ｜
 | ---- | ---- |  ---- |
-| 3.3 1D-MCS | * 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが書いてある。|
-| 3.3 1D-MCS | * 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
+| 3.3 1D-MCS |    | 1D-MCSの実装例 |
+|  | 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載|
+|  | 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
 
 * 2D-MCS.zip: 2D-MCSを実行したプロジェクトです。
 * 2D-MCS.html: 2D-MCS.Rmdファイルの解析をKnit機能を用いてアウトプットしたものです。設定に問題が無ければ、このファイルと同じ解析結果が得られるはずです。
@@ -42,6 +43,24 @@
 * Conc_Lognorm.stan: Stanコードが書いてある。
 * data.xlsx: Excelで用意したデータの例。Rmdファイル内にはExcelファイルのインポート例を記載しています (コメントアウトしてある)。
 * Excel.xlsx: Excelを用いたモンテカルロシミュレーション () と最尤推定 () の例を示したファイルです。
+
+.
+└── Edit me to generate/
+    ├── a/
+    │   └── nice/
+    │       └── tree/
+    │           ├── diagram!
+    │           └── :)
+    └── Use indentation/
+        ├── to indicate/
+        │   ├── file
+        │   ├── and
+        │   ├── folder
+        │   └── nesting.
+        └── You can even/
+            └── use/
+                ├── markdown
+                └── bullets!
 
 ## ≪インストール方法≫
 緑色のCodeボタンをクリック⇒"Download ZIP"を選択し本プロジェクトのファイルが保存されているzipファイルをダウンロードして下さい。zipファイルを解凍して任意の場所に保存して下さい。<br>
