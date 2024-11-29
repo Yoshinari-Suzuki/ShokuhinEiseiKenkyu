@@ -27,27 +27,7 @@
 * Rstudio: "Cranberry Hibiscus" Release (c8fc7aee, 2024-09-16) for windows
 * cmdstanr: ver. 0.53
 
-## ≪ファイル構成≫
-
-| フォルダ | ファイル名 | 説明 |
-| --: | :-- | :-- | 
-| 3.3 1D-MCS |    | 1D-MCSの実装例 |
-| ┠ | 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
-| ┗ | 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
-| 4.2 BE for left-censored data |   | 左打ち切りデータのベイズ推定実装例 |
-| ┠ | 4.2 BE for left-censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
-| ┠ | 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
-| ┠ | Excel_simulation.xlsx | 解析に使用するデータ |
-| ┗ | Lognormal_LC.stan | Stanコードが書いてある。|
-| 4.4 2D-MCS |   | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
-| ┠ | 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
-| ┠ | 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
-| ┠ | Gamma_LC.stan | Stanコードが書いてある。|
-| ┠ | Lognormal_LC.stan | Stanコードが書いてある|
-| ┗ | Simulation data.xlsx | 解析に使用するデータ|
-|   |  Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
-
-
+## ≪リポジトリの構成≫
 | フォルダ/ファイル名 | 説明 |
 | :-- | :-- | 
 | 3.3 1D-MCS |    | 1D-MCSの実装例 |
