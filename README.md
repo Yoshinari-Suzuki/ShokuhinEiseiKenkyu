@@ -39,17 +39,13 @@
 | ┠ | 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
 | ┠ | Excel_simulation.xlsx | 解析に使用するデータ |
 | ┗ | Lognormal_LC.stan | Stanコードが書いてある。|
-
-* 2D-MCS.zip: 2D-MCSを実行したプロジェクトです。
-* 2D-MCS.html: 2D-MCS.Rmdファイルの解析をKnit機能を用いてアウトプットしたものです。設定に問題が無ければ、このファイルと同じ解析結果が得られるはずです。
-* 2D-MCS.Rmd: Rマークダウンファイル。Rのコードが書いてある。
-* 2D-MCS.Rproj: RStudioのプロジェクトファイル。
-* 2D-MCS.png: 2D-MCSにより得られた乱数のヒストグラムと確率密度分布曲線。
-* Conc_Lognorm.stan: Stanコードが書いてある。
-* data.xlsx: Excelで用意したデータの例。Rmdファイル内にはExcelファイルのインポート例を記載しています (コメントアウトしてある)。
-* Excel.xlsx: Excelを用いたモンテカルロシミュレーション () と最尤推定 () の例を示したファイルです。
-
-
+| 4.4 2D-MCS |   | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
+| ┠ | 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| ┠ | 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
+| ┠ | Gamma_LC.stan | Stanコードが書いてある。|
+| ┠ | Lognormal_LC.stan | Stanコードが書いてある|
+| ┗ | Simulation data.xlsx | 解析に使用するデータ|
+|   |  Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
 
 ## ≪インストール方法≫
 緑色のCodeボタンをクリック⇒"Download ZIP"を選択し本プロジェクトのファイルが保存されているzipファイルをダウンロードして下さい。zipファイルを解凍して任意の場所に保存して下さい。<br>
