@@ -31,7 +31,7 @@
 | フォルダ/ファイル名 | 説明 |
 | :-- | :-- | 
 | 3.3 1D-MCS |    | 1D-MCSの実装例 |
-|  ┠ 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
+| <span>　</span> ┠ 3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
 |  ┗ 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
 | 4.2 BE for left-censored data | 左打ち切りデータのベイズ推定実装例 |
 |  ┠ 4.2 BE for left-censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
