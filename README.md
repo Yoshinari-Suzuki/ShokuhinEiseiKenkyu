@@ -39,7 +39,7 @@
 | │ ├── 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
 | │ ├── Excel_simulation.xlsx | 解析に使用するデータ |
 | │ └── Lognormal_LC.stan | Stanコードが書いてある。|
-| 4.4 2D-MCS | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
+| ├── 4.4 2D-MCS | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
 | │ ├── 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │ ├── 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
 | │ ├── Gamma_LC.stan | Stanコードが書いてある。|
