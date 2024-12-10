@@ -69,8 +69,8 @@ MLE_LN <- function(Y_L, Y_U){
 
 ```
 
-```{r}
 # MLEを実行
+```{r}
 constrOpt <- constrOptim(
   c(1, 2), # 初期値  
   MLE_LN(Y_L=data$LB, Y_U=data$UB),
@@ -84,8 +84,7 @@ gm
 gsd
 ```
 
-
-# 
+# 実行環境
 ```{r}
 sessionInfo()
 ```
