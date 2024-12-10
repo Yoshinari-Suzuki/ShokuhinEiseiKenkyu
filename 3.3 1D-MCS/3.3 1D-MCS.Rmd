@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # パッケージの読み込み
-```{r}
+```r
 library(tidyverse) 
 library(scales) # 対数軸を使用する際に必要
 
