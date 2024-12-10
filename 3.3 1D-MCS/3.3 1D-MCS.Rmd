@@ -103,7 +103,7 @@ df.Exp2$Food_int <- rgamma(N_sim, shape = 1, rate = 2)
 df.Exp2$Exposure <- df.Exp2$Conc * df.Exp2$Food_int
 ```
 
-
+# 2つの食品群のばく露量の総和を計算する
 ```{r}
 df.Exp_all <- data.frame(
   FG1 = df.Exp1$Exposure,
