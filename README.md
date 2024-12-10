@@ -34,9 +34,13 @@
 | ├── 3.3 1D-MCS |    | 1D-MCSの実装例 |
 | │ <code>&nbsp;</code> ├──  3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> └── 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
-| ├── 4.2 BE for left-censored data | 左打ち切りデータのベイズ推定実装例 |
-| │ <code>&nbsp;</code> ├── 4.2 BE for left-censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
-| │ <code>&nbsp;</code> ├── 4.2 BE for left-censored data.Rproj | RStudioのプロジェクトファイル |
+| ├── 4.2 MLE for censored data | 打ち切りデータの最尤推定実装例 |
+| │ <code>&nbsp;</code> ├── 4.1 MLE for censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| │ <code>&nbsp;</code> ├── 4.1 MLE for censored data.Rproj | RStudioのプロジェクトファイル |
+| │ <code>&nbsp;</code> └── Excel_simulation.xlsx | 解析に使用するデータ |
+| ├── 4.2 BE for censored data | 打ち切りデータのベイズ推定実装例 |
+| │ <code>&nbsp;</code> ├── 4.2 BE for censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
+| │ <code>&nbsp;</code> ├── 4.2 BE for censored data.Rproj | RStudioのプロジェクトファイル |
 | │ <code>&nbsp;</code> ├── Excel_simulation.xlsx | 解析に使用するデータ |
 | │ <code>&nbsp;</code> └── Lognormal_LC.stan | Stanコードが書いてある。|
 | ├── 4.4 2D-MCS | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
