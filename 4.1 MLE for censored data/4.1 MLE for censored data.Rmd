@@ -66,7 +66,6 @@ MLE_LN <- function(Y_L, Y_U){
 
 # 制約条件 右辺
 (ci_LN <- c(0, 1)) 
-
 ```
 
 # MLEを実行
