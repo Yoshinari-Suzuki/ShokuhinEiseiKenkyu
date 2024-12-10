@@ -34,7 +34,7 @@
 | ├── 3.3 1D-MCS |    | 1D-MCSの実装例 |
 | │ <code>&nbsp;</code> ├──  3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> └── 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
-| ├── 4.2 MLE for censored data | 打ち切りデータの最尤推定実装例 |
+| ├── 4.1 MLE for censored data | 打ち切りデータの最尤推定実装例 |
 | │ <code>&nbsp;</code> ├── 4.1 MLE for censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> ├── 4.1 MLE for censored data.Rproj | RStudioのプロジェクトファイル |
 | │ <code>&nbsp;</code> └── Excel_simulation.xlsx | 解析に使用するデータ |
@@ -51,7 +51,7 @@
 | │ <code>&nbsp;</code> └── Simulation data.xlsx | 解析に使用するデータ|
 | ├── 5 QRA | 論文化した後アップロード予定 |
 | ├── Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
-| └── README.md|  |
+| └── README.md|  | 今読んでいるファイル
 
 
 ## ≪インストール方法≫
