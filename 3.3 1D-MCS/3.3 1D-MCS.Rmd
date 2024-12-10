@@ -124,3 +124,8 @@ df.Exp_all %>% ggplot(aes(x=Total, y=..density..)) +
 
 write.csv(df.Exp_all, "df.Exp_all.csv")
 ```
+
+# 実行環境
+```{r}
+sessionInfo()
+```
