@@ -1,0 +1,92 @@
+---
+title: "4.2 BE for left-censored data"
+author: "Yoshinari Suzuki"
+date: "2024-11-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# パッケージの読み込み
+```{r}
+library(readxl) # Excelファイルを読み込む
+
+```
+
+# データの読み込み及び作図
+```{r}
+data = readxl::read_xlsx("Excel_simulation.xlsx", sheet = 3)
+# このデータは、幾何平均値=1, 幾何標準偏差=2の対数正規分布を仮定して生成した乱数で、LOD=0.3, LOQ=1を設定したものです
+
+# 余分な列を削除
+data <- data[,1:4]
+```
+
+# 対数正規分布を仮定したMLE
+```{r}
+# MLEのための関数を作成
+# 最尤推定
+MLE_LN <- function(Y_L, Y_U){
+  return(function(para){
+    gm <- para[1]
+    gsd <- para[2]
+    
+    LL <- Y_L
+    for (i in 1:length(LL)) {
+      if (Y_L[i]==Y_U[i]) {
+        LL[i] <- log( dlnorm(Y_U[i], meanlog = log(gm), sdlog=log(gsd)) )
+      } else {
+        if (Y_L[i]==0) {
+          LL[i] <- log( plnorm(Y_U[i], meanlog = log(gm), sdlog=log(gsd)) )
+        } else {
+          LL[i] <- log( 
+            plnorm(Y_U[i], meanlog = log(gm), sdlog=log(gsd)) - plnorm(Y_L[i], meanlog = log(gm), sdlog=log(gsd))
+          )
+        }
+      }
+    }
+    return( 
+      -sum(LL) # constrOptim関数は最小値となるパラメーターを探索するので、正負を逆にする  
+    )
+  } )
+}
+
+# 制約条件を設定
+# uiとciに関しては、「ui %*% par≥ci」を満たすように構成します
+# 制約条件 左辺
+(ui_LN <- matrix(
+  c(
+    1, 0, # 1*gm + 0*gsd > 0 の左辺における係数
+    0, 1  # 0*gm + 1*GSD > 1 の左辺における係数
+    ), 
+   nc=2, byrow=TRUE)
+)
+
+# 制約条件 右辺
+(ci_LN <- c(0, 1)) 
+
+```
+
+```{r}
+# MLEを実行
+constrOpt <- constrOptim(
+  c(1, 2), # 初期値  
+  MLE_LN(Y_L=data$LB, Y_U=data$UB),
+  grad=NULL, ui=ui_LN, ci=ci_LN
+)
+
+gm <- constrOpt$par[1]
+gsd <- constrOpt$par[2]
+
+gm
+gsd
+```
+
+
+# 
+```{r}
+sessionInfo()
+```
+

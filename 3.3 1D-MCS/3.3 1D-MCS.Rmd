@@ -1,0 +1,129 @@
+---
+title: "2D-MCS"
+author: "Yoshinari Suzuki"
+date: "2024-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# パッケージの読み込み
+```{r}
+library(tidyverse) 
+library(scales) # 対数軸を使用する際に必要
+
+# ggplot2の設定
+theme_set(
+  theme_bw() +
+  theme(
+    panel.grid.minor = element_line(linetype = "blank"), 
+    axis.text = element_text(colour = "black"),
+    legend.position="bottom",
+    text=element_text(size=12)
+  )
+)
+```
+
+# 食品(群)1についてMCSを実行
+```{r}
+# シード値を固定
+set.seed(123)
+
+# MCSの回数を指定
+N_sim <- 10^5
+
+# ある食品(群)1のばく露量を計算するためのデータフレームを作成
+df.Exp1 <- data.frame(
+  ID = seq(1,N_sim, by=1),
+  Conc = NA,
+  Food_int = NA,
+  Exposure = NA
+)
+
+# 濃度は対数正規分布を仮定する
+GM <- 1
+GSD <- 3
+df.Exp1$Conc <- rlnorm(N_sim, meanlog = log(GM), sdlog = log(GSD))
+
+# 喫食量はガンマ分布を仮定する
+shape <- 2
+rate <- 1
+df.Exp1$Food_int <- rgamma(N_sim, shape = shape, rate = rate)
+
+# ばく露量を計算する
+df.Exp1$Exposure <- df.Exp1$Conc * df.Exp1$Food_int
+
+# ヒストグラムを作図
+df.Exp1 %>% ggplot(aes(x=Conc, y=..density..)) +
+  geom_histogram(colour="black", fill="gray50") +
+  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # y軸を対数軸に
+    breaks = 10^(-30:7),
+    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+  ) +
+  xlab("Conc") + ylab("Density")
+
+df.Exp1 %>% ggplot(aes(x=Food_int, y=..density..)) +
+  geom_histogram(colour="black", fill="gray50") +
+  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # y軸を対数軸に
+    breaks = 10^(-30:7),
+    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+  ) +
+  xlab("Food intake") + ylab("Density")
+
+df.Exp1 %>% ggplot(aes(x=Exposure, y=..density..)) +
+  geom_histogram(colour="black", fill="gray50") +
+  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # x軸を対数軸に
+    breaks = 10^(-30:7),
+    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
+  ) +
+  xlab("Exposure") + ylab("Density")
+
+```
+
+# 同様に異なる食品(群)2についても同様にMCSを実行
+```{r}
+# ある食品(群)1のばく露量を計算するためのデータフレームを作成
+df.Exp2 <- data.frame(
+  ID = seq(1,N_sim, by=1),
+  Conc = NA,
+  Food_int = NA,
+  Exposure = NA
+)
+
+# 濃度は対数正規分布を仮定する
+df.Exp2$Conc <- rlnorm(N_sim, meanlog = log(0.2), sdlog = log(4))
+
+# 喫食量はガンマ分布を仮定する
+df.Exp2$Food_int <- rgamma(N_sim, shape = 1, rate = 2)
+
+df.Exp2$Exposure <- df.Exp2$Conc * df.Exp2$Food_int
+
+```
+
+
+```{r}
+df.Exp_all <- data.frame(
+  FG1 = df.Exp1$Exposure,
+  FG2 = df.Exp2$Exposure,
+  Total = NA
+)
+
+df.Exp_all$Total <- df.Exp_all$FG1 + df.Exp_all$FG2
+
+df.Exp_all %>% ggplot(aes(x=Total, y=..density..)) +
+  geom_histogram(colour="black", fill="gray50") +
+  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # y軸を対数軸に
+    breaks = 10^(-30:7),
+    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+  ) +
+  xlab("Exposure") + ylab("Density")
+
+write.csv(df.Exp_all, "df.Exp_all.csv")
+```
+
