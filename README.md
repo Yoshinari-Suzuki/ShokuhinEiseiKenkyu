@@ -42,7 +42,7 @@
 | │ <code>&nbsp;</code> ├── 4.2 BE for censored data.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> ├── 4.2 BE for censored data.Rproj | RStudioのプロジェクトファイル |
 | │ <code>&nbsp;</code> ├── Excel_simulation.xlsx | 解析に使用するデータ |
-| │ <code>&nbsp;</code> └── Lognormal_LC.stan | Stanコードが書いてある。|
+| │ <code>&nbsp;</code> └── Lognormal_Censored.stan | Stanコードが書いてある。|
 | ├── 4.4 2D-MCS | 左打ち切りデータをベイズ推定して2D-MCSの実装例 |
 | │ <code>&nbsp;</code> ├── 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> ├── 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
