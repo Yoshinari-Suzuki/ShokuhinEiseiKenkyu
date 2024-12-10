@@ -82,7 +82,6 @@ df.Exp1 %>% ggplot(aes(x=Exposure, y=..density..)) +
     labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
   ) +
   xlab("Exposure") + ylab("Density")
-
 ```
 
 # 同様に異なる食品(群)2についても同様にMCSを実行
@@ -102,7 +101,6 @@ df.Exp2$Conc <- rlnorm(N_sim, meanlog = log(0.2), sdlog = log(4))
 df.Exp2$Food_int <- rgamma(N_sim, shape = 1, rate = 2)
 
 df.Exp2$Exposure <- df.Exp2$Conc * df.Exp2$Food_int
-
 ```
 
 
@@ -126,4 +124,3 @@ df.Exp_all %>% ggplot(aes(x=Total, y=..density..)) +
 
 write.csv(df.Exp_all, "df.Exp_all.csv")
 ```
-
