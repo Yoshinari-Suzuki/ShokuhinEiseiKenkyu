@@ -27,6 +27,7 @@
 * Rstudio: RStudio 2024.12.0+467 "Kousa Dogwood"
 * Cmdstan: ver. 2.31.0
 * cmdstanr: ver. 0.53
+* rstan: ver. 2.21.7
 
 ## ≪リポジトリの構成≫<br>
 | フォルダ/ファイル名 | 説明 |
