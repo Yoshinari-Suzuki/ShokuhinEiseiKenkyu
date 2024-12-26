@@ -18,7 +18,7 @@ library(readxl) # Excelファイルを読み込む
 # データの読み込み及び作図
 ```{r}
 data = readxl::read_xlsx("Excel_simulation.xlsx", sheet = 3)
-# このデータは、幾何平均値=1, 幾何標準偏差=2の対数正規分布を仮定して生成した乱数で、LOD=0.3, LOQ=1を設定したものです
+# このデータは、幾何平均値=1, 幾何標準偏差=2の対数正規分布を仮定して生成した乱数で、LOD=0.3, LOQ=1を設定したもの
 
 # 余分な列を削除
 data <- data[,1:4]
@@ -54,7 +54,7 @@ MLE_LN <- function(Y_L, Y_U){
 }
 
 # 制約条件を設定
-# uiとciに関しては、「ui %*% par≥ci」を満たすように構成します
+# uiとciに関しては、「ui %*% par≥ci」を満たすように構成する
 # 制約条件 左辺
 (ui_LN <- matrix(
   c(
