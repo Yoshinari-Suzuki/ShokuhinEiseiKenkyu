@@ -21,9 +21,10 @@
 
 ## ≪製作環境≫<br>
 このRプロジェクトを作成した環境は以下の通りです。
-* OS: Windows10
+* OS: Windows11
 * R: 4.1.0
-* Rstudio: "Cranberry Hibiscus" Release (c8fc7aee, 2024-09-16) for windows
+* Rstudio: RStudio 2024.12.0+467 "Kousa Dogwood"
+* Cmdstan: ver. 2.31.0
 * cmdstanr: ver. 0.53
 
 ## ≪リポジトリの構成≫<br>
