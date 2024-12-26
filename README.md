@@ -71,6 +71,7 @@ RStudio: <https://www.rstudio.com/products/rstudio/download/><br>
 このRプロジェクトでは、{cmdstanr}パッケージを使用しています。<br>
 Cmdstanおよび{cmdstanr}パッケージのインストールおよび実行方法は下記のサイトを参考にして下さい。<br>
 <https://mc-stan.org/cmdstanr/><br>
+Cmdstan ver. 2.35.0以降と、それに対応していない古いバージョンのrstanを使用している場合には、本リポジトリ内のコードが上手く動かない可能性があります。<br>
 
 ## ≪使用方法≫
 RStudioを起動して、フォルダ内のRprojファイルを開いて下さい。<br>
