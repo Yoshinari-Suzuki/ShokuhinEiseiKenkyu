@@ -22,12 +22,11 @@
 ## ≪製作環境≫<br>
 このRプロジェクトを作成した環境は以下の通りです。
 * OS: Windows11
-* R: 4.1.0
-* Rtools: 4.0
+* R: 4.4.2
+* Rtools: 4.4
 * Rstudio: RStudio 2024.12.0+467 "Kousa Dogwood"
-* Cmdstan: ver. 2.31.0
-* cmdstanr: ver. 0.53
-* rstan: ver. 2.21.7
+* Cmdstan: ver. 2.36.0
+* cmdstanr: ver. 0.8.1.9000
 
 ## ≪リポジトリの構成≫<br>
 | フォルダ/ファイル名 | 説明 |
