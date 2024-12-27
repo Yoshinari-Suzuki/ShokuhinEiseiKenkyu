@@ -47,8 +47,8 @@
 | ├── 4.4 2D-MCS | 打ち切りデータをベイズ推定して2D-MCSまで行う実装例 |
 | │ <code>&nbsp;</code> ├── 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> ├── 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
-| │ <code>&nbsp;</code> ├── Gamma_LC.stan | Stanコードが書いてある。|
-| │ <code>&nbsp;</code> ├── Lognormal_LC.stan | Stanコードが書いてある|
+| │ <code>&nbsp;</code> ├── Gamma_Censored.stan | Stanコードが書いてある。|
+| │ <code>&nbsp;</code> ├── Lognormal_Censored.stan | Stanコードが書いてある|
 | │ <code>&nbsp;</code> └── Simulation data.xlsx | 解析に使用するデータ|
 | ├── 5 QRA | 論文化した後アップロード予定 |
 | ├── Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
