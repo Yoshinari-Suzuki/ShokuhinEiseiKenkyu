@@ -52,7 +52,7 @@
 | │ <code>&nbsp;</code> └── Simulation data.xlsx | 解析に使用するデータ|
 | ├── 5 QRA | 論文化した後アップロード予定 |
 | ├── Excel_simulation.xlsx | Excelを用いたモンテカルロシミュレーションと最尤推定の実装例 |
-| └── README.md|  | 今読んでいるファイル
+| └── README.md| 今読んでいるファイル | 
 
 
 ## ≪インストール方法≫
