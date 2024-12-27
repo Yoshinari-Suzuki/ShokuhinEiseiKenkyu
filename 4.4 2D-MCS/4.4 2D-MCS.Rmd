@@ -1,0 +1,286 @@
+---
+title: "2D-MCS"
+author: "Yoshinari Suzuki"
+date: "2024-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# パッケージの読み込み
+```{r}
+library(readxl) # Excelファイルを読み込む
+library(tidyverse) # データフレームを操作するための{dyplyr}{tidyr}や作図用のggplot2等を一度に呼び出せる
+library(scales) # 対数軸を使用するため
+# library(statip) # 最頻値を計算する関数 mfv() があるが、複数の値を返すことがあるので注意
+library(HDInterval) # 最高密度区間 (HDI) を計算する
+library(loo) # WAICの計算に
+
+theme_set(
+  theme_bw() +
+  theme(
+    panel.grid.minor = element_line(linetype = "blank"), 
+    axis.text = element_text(colour = "black"),
+    legend.position="bottom",
+    text=element_text(size=12)
+  )
+)
+
+# ベイズ推定を行うのに必要
+library(cmdstanr)
+library(bayesplot) # ベイズ推定の結果を視覚化
+library(posterior) # 事後分布
+
+# MAP推定量を算出するための関数を設定
+MAP <- function(x) {
+  density_est <- density(x)
+  map <- density_est$x[which.max(density_est$y)]
+  return(map)
+}
+```
+
+# データの読み込み及び作図
+```{r}
+data = readxl::read_xlsx("Simulation data.xlsx", sheet = 2)
+
+# このデータは、幾何平均値=1, 幾何標準偏差=3の対数正規分布を仮定して生成した乱数で、LOD=0.3, LOQ=1を設定したものです。
+
+data$MB <- (data$LB + data$UB)/2
+
+data %>% ggplot(aes(x=MB, y=..density..)) +
+  geom_histogram(colour="black", fill="gray80") +
+  scale_x_log10()
+
+```
+
+# ベイズモデルの作成
+```{r}
+model_lognormal <- cmdstan_model("Lognormal_Censored.stan")
+model_gamma <- cmdstan_model("Gamma_Censored.stan")
+```
+
+# 対数正規分布を仮定したベイズ推定
+```{r}
+thin <- 1 # 基本的には1を用いる。
+N_warmup <- 500
+N_sampling <- 500
+chain <- 4
+N_new <- 50 # 2次元目で生成する乱数の数
+
+gsd_int <- c(1,3) # 事前分布に用いるCauchy分布のパラメーター
+
+standata <- list(
+  N=nrow(data), Y_L=data$LB, Y_U=data$UB, gsd_int=gsd_int, N_new=N_new
+)
+
+fit_lognormal <- model_lognormal$sample(
+  data = standata,
+  parallel_chains = 4,
+  chains = chain,
+  thin = thin,
+  iter_warmup = N_warmup * thin,
+  iter_sampling = N_sampling * thin,
+  save_warmup = TRUE,
+  seed = 1, # 結果の再現性のために
+  adapt_delta = 0.80, # デフォルト値。必要に応じて変更する。0~1の実数を入力する。
+  max_treedepth = 10  # デフォルト値。必要に応じて変更する。正の整数を入力する。
+)
+
+# トレースプロットで計算の収束具合を確認
+fit_lognormal$draws() %>% 
+  mcmc_trace(
+    par=c("gm", "gsd", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
+    np = nuts_params(fit_lognormal), # 逸脱したデータがあったか確認
+    np_style = trace_style_np() # 逸脱したデータの箇所を表示
+  ) +
+    ggplot2::geom_line(alpha=0.25, size=0.75) +
+    ggplot2::scale_colour_hue(name = "Chain") +
+    ggplot2::theme(
+      text=element_text(size=14),
+      legend.position = "bottom"  # 凡例を下部に移動
+    ) +
+    xlab("Iteration") + ylab("Value")
+
+
+# 多くのパラメータの推定結果を図示する
+fit_lognormal$draws() %>% 
+  mcmc_parcoord(
+    np = nuts_params(fit_lognormal)
+  ) +
+  ggplot2::theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# R_hatが1.1未満であることを確認する
+fit_lognormal %>% bayesplot::rhat() %>% mcmc_rhat_hist()
+
+# N_eff率が0.1以下の推定値が無いか確認 
+fit_lognormal %>% bayesplot::neff_ratio() %>% mcmc_neff_hist()
+
+# 自己相関が早いLagで低くなったことを確認する
+fit_lognormal$draws() %>% 
+mcmc_acf(
+  pars = c("gm", "gsd", "lp__")
+)
+
+# NUTS 診断情報を取得
+np <- nuts_params(fit_lognormal)
+
+# 事後分布の相関マトリックス
+fit_lognormal$draws() %>%
+  mcmc_pairs(
+    pars = c("gm", "gsd", "lp__"),
+    np = np,
+    condition = pairs_condition(nuts = "accept_stat__"),
+    off_diag_args = list(size = 1, alpha = 1/3),
+    np_style = scatter_style_np(
+      div_color = "red", div_shape = 4, div_size = 4
+    )
+  )
+
+# BE法の結果に関する要約
+summary.fit_lognormal <- fit_lognormal$summary()
+
+# 全ての事後分布をデータフレームに
+d.ms_lognormal <- fit_lognormal$draws() %>% posterior::as_draws_df()
+
+# WAICの計算
+WAIC_lognormal <- fit_lognormal$draws("log_lik") %>% loo::waic()
+WAIC_lognormal
+
+# 要約統計量
+fit_lognormal$summary(
+  variables = c("gm", "gsd", "mean_est", "sd_est", "lp__"),
+  posterior::default_summary_measures()[c(1,3)],
+  quantiles = ~ quantile2(., probs = c(0.025, 0.25, 0.5, 0.75, 0.975)),
+  posterior::default_convergence_measures()
+)
+
+# 計算に要した時間 (秒)
+fit_lognormal$time()
+
+```
+
+# ガンマ分布を仮定したベイズ推定
+```{r}
+thin <- 1
+N_warmup <- 500
+N_sampling <- 500
+chain <- 4
+
+shape_int <- c(1,1)
+
+standata <- list(
+  N=nrow(data), Y_L=data$LB, Y_U=data$UB, shape_int=shape_int, N_new=50
+)
+
+fit_gamma <- model_gamma$sample(
+  data = standata,
+  parallel_chains = 4,
+  chains = chain,
+  thin = thin,
+  iter_warmup = N_warmup * thin,
+  iter_sampling = N_sampling * thin,
+  save_warmup = TRUE,
+  seed = 1,
+  adapt_delta = 0.80,
+  max_treedepth = 10
+)
+
+# トレースプロットで計算の収束具合を確認
+fit_gamma$draws() %>% 
+  mcmc_trace(
+    par=c("shape", "rate", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
+    np = nuts_params(fit_lognormal), # 逸脱したデータがあったか確認
+    np_style = trace_style_np() # 逸脱したデータの箇所を表示
+  ) +
+    ggplot2::geom_line(alpha=0.25, size=0.75) +
+    ggplot2::scale_colour_hue(name = "Chain") +
+    ggplot2::theme(
+      text=element_text(size=14),
+      legend.position = "bottom"  # 凡例を下部に移動
+    ) +
+    xlab("Iteration") + ylab("Value")
+
+# BE法の結果に関する要約
+summary.fit_gamma <- fit_gamma$summary()
+
+# 全ての事後分布をデータフレームに
+d.ms_gamma <- fit_gamma$draws() %>% posterior::as_draws_df()
+
+# WAICの計算
+WAIC_gamma <- fit_gamma$draws("log_lik") %>% loo::waic()
+
+# 要約統計量
+fit_gamma$summary(
+  variables = c("shape", "rate", "mean_est", "sd_est", "lp__"),
+  posterior::default_summary_measures()[c(1,3)],
+  quantiles = ~ quantile2(., probs = c(0.025, 0.25, 0.5, 0.75, 0.975)),
+  posterior::default_convergence_measures()
+)
+```
+
+# WAICの比較
+```{r}
+WAIC_lognormal$estimates[3]
+WAIC_gamma$estimates[3]
+
+# WAICが小さいので、対数正規分布のほうが妥当なモデルと判断
+```
+
+# 2D-MCS用にアウトプット
+```{r}
+# 事後分布を抽出
+samples_array <- fit_lognormal$draws() %>% as_draws_array()
+dim(samples_array)  # 次元を確認 (iterations × chains × parameters)
+
+# 手動でイテレーション番号とチェーン番号を作成
+iterations <- seq_len(dim(samples_array)[1])
+chains <- seq_len(dim(samples_array)[2])
+
+# long形式のデータフレームに変換
+samples_df <- reshape2::melt(samples_array, varnames = c("Iteration", "Chain", "Parameter"))
+samples_df$Iteration <- iterations[samples_df$Iteration]
+samples_df$Chain <- chains[samples_df$Chain]
+
+# wide形式のデータフレームに変換
+samples_df <- tidyr::spread(samples_df, key="Parameter", value="value")
+samples_df <- samples_df %>%
+  mutate(ID = seq(N_sampling * chain)) %>% # 新しい変数 (ID) を追加
+  select(ID, everything())    # ID を一番左に配置
+
+# 2D-MCS用に不要なlog-likのデータを削除
+df.2DMCS <- samples_df[,-c(9:58)]
+df.2DMCS <- df.2DMCS %>% tidyr::gather("Number", "Value", 8:(N_new+7))
+
+# ヒストグラム & 密度プロット
+df.2DMCS %>% ggplot(aes(x=Value, y=..density..)) +
+  geom_line(aes(colour=factor(ID)), stat = "density", alpha=0.1) +
+  geom_histogram(colour="black", alpha=0, bins=50) +
+  annotation_logticks(sides = "b") + # b で下だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # x軸を対数軸に
+    breaks = 10^(-12:7),
+    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
+  ) +
+  theme(legend.position="none") +
+  xlab("Concentration") + ylab("Density")
+
+# 経験累積確率分布
+df.2DMCS %>% ggplot(aes(x=Value)) +
+  stat_ecdf(aes(colour=factor(ID)), geom = "step", alpha=0.1) +
+  annotation_logticks(sides = "b") + # b で左だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # x軸を対数軸に
+    breaks = 10^(-12:7),
+    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
+  ) +
+  theme(legend.position="none") +
+  xlab("Concentration") + ylab("eCDF")
+
+# 2D-MCSの結果をcsvファイルに出力
+write.csv(df.2DMCS, "2D-MCS.csv")
+```
+
+```{r}
+sessionInfo()
+```
+
