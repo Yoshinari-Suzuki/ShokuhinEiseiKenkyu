@@ -13,6 +13,7 @@ parameters {
 
 transformed parameters {
   real gm; // 期待値と幾何標準偏差から変換する
+
   gm = mean_est / exp(0.5*log(gsd)^2);
 }
 
