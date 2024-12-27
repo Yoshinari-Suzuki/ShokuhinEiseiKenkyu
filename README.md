@@ -32,7 +32,7 @@
 | フォルダ/ファイル名 | 説明 |
 | :-- | :-- | 
 | . |    |  |
-| ├── 3.3 1D-MCS |    | 1D-MCSの実装例 |
+| ├── 3.3 1D-MCS | 1D-MCSの実装例 |
 | │ <code>&nbsp;</code> ├──  3.3 1D-MCS.Rmd   | Rマークダウンファイル。Rのコードが記載 |
 | │ <code>&nbsp;</code> └── 3.3 1D-MCS.Rproj | RStudioのプロジェクトファイル |
 | ├── 4.1 MLE for censored data | 打ち切りデータの最尤推定実装例 |
