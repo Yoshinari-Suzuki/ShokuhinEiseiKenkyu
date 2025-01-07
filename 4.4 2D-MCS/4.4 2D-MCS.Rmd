@@ -5,7 +5,7 @@ date: "2024-11-25"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -23,8 +23,8 @@ theme_set(
   theme(
     panel.grid.minor = element_line(linetype = "blank"), 
     axis.text = element_text(colour = "black"),
-    legend.position="bottom",
-    text=element_text(size=12)
+    legend.position = "bottom",
+    text = element_text(size = 12)
   )
 )
 
@@ -91,14 +91,14 @@ fit_lognormal <- model_lognormal$sample(
 # トレースプロットで計算の収束具合を確認
 fit_lognormal$draws() %>% 
   mcmc_trace(
-    par=c("gm", "gsd", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
+    par = c("gm", "gsd", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
     np = nuts_params(fit_lognormal), # 逸脱したデータがあったか確認
     np_style = trace_style_np() # 逸脱したデータの箇所を表示
   ) +
-    ggplot2::geom_line(alpha=0.25, size=0.75) +
+    ggplot2::geom_line(alpha = 0.25, size = 0.75) +
     ggplot2::scale_colour_hue(name = "Chain") +
     ggplot2::theme(
-      text=element_text(size=14),
+      text = element_text(size = 14),
       legend.position = "bottom"  # 凡例を下部に移動
     ) +
     xlab("Iteration") + ylab("Value")
@@ -171,7 +171,7 @@ chain <- 4
 shape_int <- c(1,1)
 
 standata <- list(
-  N=nrow(data), Y_L=data$LB, Y_U=data$UB, shape_int=shape_int, N_new=50
+  N=nrow(data), Y_L = data$LB, Y_U = data$UB, shape_int = shape_int, N_new = 50
 )
 
 fit_gamma <- model_gamma$sample(
@@ -190,14 +190,14 @@ fit_gamma <- model_gamma$sample(
 # トレースプロットで計算の収束具合を確認
 fit_gamma$draws() %>% 
   mcmc_trace(
-    par=c("shape", "rate", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
+    par = c("shape", "rate", "mean_est", "sd_est", "lp__"), # 描画する変数を指定
     np = nuts_params(fit_lognormal), # 逸脱したデータがあったか確認
     np_style = trace_style_np() # 逸脱したデータの箇所を表示
   ) +
-    ggplot2::geom_line(alpha=0.25, size=0.75) +
+    ggplot2::geom_line(alpha = 0.25, size = 0.75) +
     ggplot2::scale_colour_hue(name = "Chain") +
     ggplot2::theme(
-      text=element_text(size=14),
+      text=element_text(size = 14),
       legend.position = "bottom"  # 凡例を下部に移動
     ) +
     xlab("Iteration") + ylab("Value")
@@ -244,7 +244,7 @@ samples_df$Iteration <- iterations[samples_df$Iteration]
 samples_df$Chain <- chains[samples_df$Chain]
 
 # wide形式のデータフレームに変換
-samples_df <- tidyr::spread(samples_df, key="Parameter", value="value")
+samples_df <- tidyr::spread(samples_df, key = "Parameter", value = "value")
 samples_df <- samples_df %>%
   mutate(ID = seq(N_sampling * chain)) %>% # 新しい変数 (ID) を追加
   select(ID, everything())    # ID を一番左に配置
@@ -254,26 +254,26 @@ df.2DMCS <- samples_df[,-c(9:58)]
 df.2DMCS <- df.2DMCS %>% tidyr::gather("Number", "Value", 8:(N_new+7))
 
 # ヒストグラム & 密度プロット
-df.2DMCS %>% ggplot(aes(x=Value, y=..density..)) +
-  geom_line(aes(colour=factor(ID)), stat = "density", alpha=0.1) +
-  geom_histogram(colour="black", alpha=0, bins=50) +
+df.2DMCS %>% ggplot(aes(x = Value, y = ..density..)) +
+  geom_line(aes(colour = factor(ID)), stat = "density", alpha = 0.1) +
+  geom_histogram(colour = "black", alpha = 0, bins = 50) +
   annotation_logticks(sides = "b") + # b で下だけ，trblだと上下左右にtickが入る
   scale_x_log10( # x軸を対数軸に
     breaks = 10^(-12:7),
     labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
   ) +
-  theme(legend.position="none") +
+  theme(legend.position = "none") +
   xlab("Concentration") + ylab("Density")
 
 # 経験累積確率分布
-df.2DMCS %>% ggplot(aes(x=Value)) +
-  stat_ecdf(aes(colour=factor(ID)), geom = "step", alpha=0.1) +
+df.2DMCS %>% ggplot(aes(x = Value)) +
+  stat_ecdf(aes(colour = factor(ID)), geom = "step", alpha = 0.1) +
   annotation_logticks(sides = "b") + # b で左だけ，trblだと上下左右にtickが入る
   scale_x_log10( # x軸を対数軸に
     breaks = 10^(-12:7),
     labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
   ) +
-  theme(legend.position="none") +
+  theme(legend.position = "none") +
   xlab("Concentration") + ylab("eCDF")
 
 # 2D-MCSの結果をcsvファイルに出力
