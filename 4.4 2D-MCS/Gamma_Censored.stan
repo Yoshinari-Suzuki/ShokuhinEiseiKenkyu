@@ -43,13 +43,13 @@ generated quantities {
   
   sd_est = sqrt(shape) / rate;
   for (i in 1:N) {
-    if ( Y_L[i]==Y_U[i] ) {
+    if ( Y_L[i] == Y_U[i] ) {
       log_lik[i] = gamma_lpdf(Y_U[i] | shape, rate);
     } else {
-      if ( Y_L[i]==0 ) {
+      if ( Y_L[i] == 0 ) {
         log_lik[i] = gamma_lcdf(Y_U[i] | shape, rate);
       } else {
-        log_lik[i] = log(gamma_cdf(Y_U[i] | shape, rate) - gamma_cdf( Y_L[i] | shape, rate));
+        log_lik[i] = log(gamma_cdf(Y_U[i] | shape, rate) - gamma_cdf(Y_L[i] | shape, rate));
       }
     }
   }
