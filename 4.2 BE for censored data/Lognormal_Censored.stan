@@ -40,12 +40,12 @@ generated quantities {
   array[N] real log_lik;
   array[N_new] real Y_new;
   
-  sd_est = mean_est * sqrt( exp( log(gsd)^2 ) - 1 );
+  sd_est = mean_est * sqrt(exp(log(gsd)^2) - 1);
   for (i in 1:N) {
-    if ( Y_L[i]==Y_U[i] ) {
+    if ( Y_L[i] == Y_U[i] ) {
       log_lik[i] = lognormal_lpdf(Y_U[i] | log(gm), log(gsd));
     } else {
-      if ( Y_L[i]==0 ) {
+      if ( Y_L[i] == 0 ) {
         log_lik[i] = lognormal_lcdf(Y_U[i] | log(gm), log(gsd));
       } else {
         log_lik[i] = log( lognormal_cdf(Y_U[i] | log(gm), log(gsd)) - lognormal_cdf(Y_L[i] | log(gm), log(gsd)) );
