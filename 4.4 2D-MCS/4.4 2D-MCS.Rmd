@@ -268,10 +268,10 @@ df.2DMCS %>% ggplot(aes(x = Value, y = ..density..)) +
 # 経験累積確率分布
 df.2DMCS %>% ggplot(aes(x = Value)) +
   stat_ecdf(aes(colour = factor(ID)), geom = "step", alpha = 0.1) +
-  annotation_logticks(sides = "b") + # b で左だけ，trblだと上下左右にtickが入る
-  scale_x_log10( # x軸を対数軸に
+  annotation_logticks(sides = "b") + 
+  scale_x_log10(
     breaks = 10^(-12:7),
-    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
+    labels = trans_format("log10", math_format(10^.x))
   ) +
   theme(legend.position = "none") +
   xlab("Concentration") + ylab("eCDF")
