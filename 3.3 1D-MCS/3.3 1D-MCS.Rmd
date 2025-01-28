@@ -58,28 +58,28 @@ df.Exp1$Exposure <- df.Exp1$Conc * df.Exp1$Food_int
 # ヒストグラムを作図
 df.Exp1 %>% ggplot(aes(x=Conc, y=..density..)) +
   geom_histogram(colour="black", fill="gray50") +
-  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
-  scale_x_log10( # y軸を対数軸に
+  annotation_logticks(sides = "b") + # b で下だけ，trblだと上下左右にtickが入る
+  scale_x_log10( # x軸を対数軸に
     breaks = 10^(-30:7),
-    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^x
   ) +
   xlab("Conc") + ylab("Density")
 
 df.Exp1 %>% ggplot(aes(x=Food_int, y=..density..)) +
   geom_histogram(colour="black", fill="gray50") +
-  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
-  scale_x_log10( # y軸を対数軸に
+  annotation_logticks(sides = "b") + 
+    scale_x_log10( 
     breaks = 10^(-30:7),
-    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+    labels = trans_format("log10", math_format(10^.x)) 
   ) +
   xlab("Food intake") + ylab("Density")
 
 df.Exp1 %>% ggplot(aes(x=Exposure, y=..density..)) +
   geom_histogram(colour="black", fill="gray50") +
-  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
-  scale_x_log10( # x軸を対数軸に
+  annotation_logticks(sides = "b") + 
+  scale_x_log10( 
     breaks = 10^(-30:7),
-    labels = trans_format("log10", math_format(10^.x)) # x軸の表記を10^xに
+    labels = trans_format("log10", math_format(10^.x))
   ) +
   xlab("Exposure") + ylab("Density")
 ```
@@ -115,10 +115,10 @@ df.Exp_all$Total <- df.Exp_all$FG1 + df.Exp_all$FG2
 
 df.Exp_all %>% ggplot(aes(x=Total, y=..density..)) +
   geom_histogram(colour="black", fill="gray50") +
-  annotation_logticks(sides = "b") + # l で左だけ，trblだと上下左右にtickが入る
-  scale_x_log10( # y軸を対数軸に
+  annotation_logticks(sides = "b") + 
+  scale_x_log10(
     breaks = 10^(-30:7),
-    labels = trans_format("log10", math_format(10^.x)) # y軸の表記を10^x
+    labels = trans_format("log10", math_format(10^.x)) 
   ) +
   xlab("Exposure") + ylab("Density")
 
