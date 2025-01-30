@@ -12,7 +12,7 @@ parameters {
 }
 
 transformed parameters {
-  real rate; // 期待値と幾何標準偏差から比率パラメーターに変換
+  real rate; // 期待値と形状パラメーター (shape) から比率パラメーター (rate) に変換
   
   rate = shape / mean_est;
 }
