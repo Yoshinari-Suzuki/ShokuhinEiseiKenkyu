@@ -48,6 +48,7 @@
 | ├─ 4.4 2D-MCS | 打ち切りデータをベイズ推定して2D-MCSまで行う実装例 |
 | │　├─ 4.4 2D-MCS.Rmd | Rマークダウンファイル。Rのコードが記載 |
 | │　├─ 4.4 2D-MCS.Rproj | RStudioのプロジェクトファイル |
+| │　├─ Gamma_Censored.stan | Stanコードが書いてある|
 | │　├─ Lognormal_Censored.stan | Stanコードが書いてある|
 | │　└─ Simulation data.xlsx | 解析に使用するデータ|
 | ├─ 5 QRA | 論文化した後アップロード予定 |
@@ -89,7 +90,6 @@ RおよびRStudioのアンインストールは、公式のHPを参照してく�
 ## ≪履歴≫
 * 2024/11/25: 作製
 * 2025/3/5: Publicに変更
-* 2025/7/22: 一部修正
 
 ## ≪作者≫
 鈴木美成<br>
