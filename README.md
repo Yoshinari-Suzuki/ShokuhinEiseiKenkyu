@@ -16,6 +16,7 @@
 * [鈴木美成, 近藤翠, 北山育子, 穐山浩, 堤智昭, 二次元モンテカルロシミュレーションを用いた食事性鉛曝露量分布の推定:トータルダイエット試料への適用の試み, 食品衛生学雑誌, 64(1), 1-12 (2023)](https://www.jstage.jst.go.jp/article/shokueishi/64/1/64_1/_article/-char/ja).<br>
 * [鈴木美成, 食品を介した有害元素の摂取量推定, FFIジャーナル, 228(1), 025-034 (2023)](https://www.jstage.jst.go.jp/article/ffij/228/1/228_025/_article/-char/ja/).
 * [鈴木美成, 化学物質の食事性ばく露評価における確率論的アプローチ, 食品衛生研究, 75(3), 39-59 (2025).](http://suishinka.shop15.makeshop.jp/shopdetail/000000000557/category02/page1/recommend/)
+* [Suzuki et al., Probabilistic estimation of the dietary exposure to Cadmium in Japan in 2019-2021 using two-dimensional Monte Carlo simulation after Bayesian handling of left-censored data, Food Chemistry Advances, 7, 101013, (2025).](https://www.sciencedirect.com/science/article/pii/S2772753X25001297)
 <br>
 なお、本Repositry内のコードを実行したことによって生じたすべての障害・損害・不具合等に関しては、私と私の関係者および私の所属するいかなる団体・組織とも、一切の責任を負いません。
 各自の責任においてご使用下さい。<br>
@@ -90,6 +91,7 @@ RおよびRStudioのアンインストールは、公式のHPを参照してく�
 ## ≪履歴≫
 * 2024/11/25: 作製
 * 2025/3/5: Publicに変更
+* 2025/7/23: 論文を追加
 
 ## ≪作者≫
 鈴木美成<br>
